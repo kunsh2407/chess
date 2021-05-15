@@ -13,7 +13,17 @@ class Game {
       gameState: state,
     });
   }
-
+  getTurn() {
+    var gameStateRef = database.ref("playerTurn");
+    gameStateRef.on("value", function (data) {
+     playerTurn = data.val();
+    });
+    
+  }
+  updateTurn(turn) {
+    database.ref("/").update({
+      playerTurn: turn,
+    });}
   async start() {
     if (gameState === 0) {
       this.createBoard();
@@ -26,11 +36,53 @@ class Game {
       form = new Form();
       form.display();
     }
+    var k1 = new King(375, 375, white);
+    var k2 = new King(375, 375, black);
+    players = [
+      [
+        p11,
+        p12,
+        p13,
+        p14,
+        p15,
+        p16,
+        p17,
+        p18,
+        r11,
+        b11,
+        kn11,
+        q1,
+        k1,
+        kn12,
+        b12,
+        r12,
+      ],
+      [
+        p21,
+        p22,
+        p23,
+        p24,
+        p25,
+        p26,
+        p27,
+        p28,
+        r21,
+        b21,
+        kn21,
+        q2,
+        k2,
+        kn22,
+        b22,
+        r22,
+      ],
+    
+    ];
+    this.getTurn()
   }
 
   play() {
     form.hide();
-console.log("play")
+    console.log("play");
     Player.getPlayerInfo();
     this.drawBoard();
     if (allPlayers !== undefined) {
@@ -52,10 +104,10 @@ console.log("play")
   createBoard() {
     var k = 0;
     rectMode(CENTER);
-    for (var j = 50; j < 450; j += 50) {
+    for (var j = 75; j < 675; j += 75) {
       boxes = [];
-      for (var i = 50; i < 450; i += 50) {
-        var box = new MyObject(i, j, 50, 50);
+      for (var i = 75; i < 675; i += 75) {
+        var box = new MyObject(i, j, 75, 75);
         boxes.push(box);
       }
       board.push(boxes);
@@ -65,12 +117,13 @@ console.log("play")
     rectMode(CENTER);
     var k = 0;
     for (var j = 0; j < board.length; j++) {
+      k++;
       for (var i = 0; i < board[j].length; i++) {
         k++;
         if (k % 2 == 0) {
-          board[j][i].color = 0;
+          board[j][i].color = 64;
         } else {
-          board[j][i].color =0 ;
+          board[j][i].color = 192;
         }
         board[j][i].display();
       }

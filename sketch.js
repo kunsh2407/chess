@@ -14,13 +14,13 @@ var players = [];
 var playState = "wait";
 var selectedpeg = "";
 var selectedpos = "";
-
+var playerTurn=0;
 function preload() {
   
 }
 
 function setup() {
-  canvas = createCanvas(displayWidth - 20, displayHeight - 30);
+  canvas = createCanvas(1000,1000);
   database = firebase.database();
   game = new Game();
   game.getState();

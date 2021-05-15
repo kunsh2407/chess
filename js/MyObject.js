@@ -1,5 +1,5 @@
 class MyObject {
-  costructor(x, y, width, height, color, imagePath) {
+  constructor(x, y, width, height, color, imagePath) {
     this.x = x;
     this.y = y;
     this.width = width;
@@ -20,7 +20,7 @@ class MyObject {
       push();
       stroke("grey");
       strokeWeight(3);
-      //fill(this.color);
+      fill(this.color);
       rectMode(CENTER);
       rect(this.x, this.y, this.width, this.height);
       console.log("rect")
